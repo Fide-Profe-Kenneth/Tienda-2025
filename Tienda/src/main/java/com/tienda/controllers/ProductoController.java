@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Controller;
 
-@RestController
+@Controller
 @RequestMapping("/api/productos")
 public class ProductoController {
     @Autowired
@@ -31,7 +32,7 @@ public class ProductoController {
     }
 
     @GetMapping("/{id}")
-    public Producto optenerProductoId( @PathVariable Long id){
+    public Producto obtenerProductoId( @PathVariable Long id){
         return this.productoServiceManager.getById(id).get();
     }
 

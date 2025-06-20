@@ -23,6 +23,7 @@ public class ProductoService implements IProductoService{
     // Inyectando (generando una instancia de la clase), atributo de la clase
     @Autowired
     ProductoRepository productoRepository;
+    
     @Override
     @Transactional
     public Producto save(Producto producto) {
@@ -34,7 +35,6 @@ public class ProductoService implements IProductoService{
     public List<Producto> findAll() {
         return (List<Producto>) this.productoRepository.findAll();
     }
-
 
     @Override
     @Transactional(readOnly = true)

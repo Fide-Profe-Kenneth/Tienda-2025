@@ -12,6 +12,7 @@ import java.util.Optional;
  * @author Usuario
  */
 
+
 public interface IProductoService {
     
     public List<Producto> findAll();

@@ -14,9 +14,10 @@ import org.springframework.data.repository.CrudRepository;
 
 /*
 
-Interface :
-Extends :
-Clase Generica :
+Interface (tipo de clase que define metodos, pero no como se implementan) 
+Extends : Heredar (herencia)
+Clase Generica : 
+
 
 */
 public interface ProductoRepository extends CrudRepository<Producto, Long> {
