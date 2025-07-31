@@ -76,10 +76,7 @@ public class Persona {
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
 
-    public String getPassword() {
-        System.out.println(this.password);
-        System.out.println(password);
-        return this.password; }
+    public String getPassword() { return this.password; }
     public void setPassword(String password) { this.password = password; }
 
     public int getActive() { return active; }

@@ -30,6 +30,7 @@ public class AppAuthenticationSuccessHandler implements AuthenticationSuccessHan
         for (GrantedAuthority authority : authorities) {
             String role = authority.getAuthority();
             if (role.equals("ROLE_ADMIN")) {
+                System.out.println("ENTRE");
                 redirectUrl = "/personas/lista";
                 break;
             } else if (role.equals("ROLE_VENDEDOR")) {

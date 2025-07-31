@@ -28,8 +28,6 @@ public class UserService implements UserDetailsService{
         logger.info("Buscando usuario: {}", username);
         Persona persona = this.personaService.findByNombre(username);
         Userprincipal userPrincipal = new Userprincipal(persona);
-        return userPrincipal;
-        
-    }
-    
+        return userPrincipal;       
+    } 
 }
