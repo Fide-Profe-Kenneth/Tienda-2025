@@ -11,8 +11,6 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
@@ -36,18 +34,16 @@ public class Userprincipal implements UserDetails {
     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        System.out.println("Roles en Persona: " + persona.getRoles());
+        System.out.println("RoleList: " + persona.getRoleList());
         List<GrantedAuthority> authorities = new ArrayList<>();
-        System.out.println("ENTRE2");
-        //extract list of permissions (name)
-        this.persona.getPermissionList().forEach(p -> {
-            GrantedAuthority authority = new SimpleGrantedAuthority(p);
-            authorities.add(authority);
-        });
+
         //roles
          this.persona.getRoleList().forEach(r -> {
-            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" +r);
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" +r.trim());
             authorities.add(authority);
         });
+        System.out.println("Authorities generadas: " + authorities);
         return authorities;
     }
 
@@ -60,18 +56,7 @@ public class Userprincipal implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        String rawPassword = "12345"; // tu contraseña en texto plano
-        String hashedPassword = encoder.encode(rawPassword);
-
-        System.out.println("Password en texto plano: " + rawPassword);
-        System.out.println("Password hasheado (BCrypt): " + hashedPassword);    
-        System.out.println("Password desde Userprincipal: " + persona.getPassword());
-    
-        System.out.println("¿Password coincide?: " + encoder.matches(rawPassword, persona.getPassword()));
-        return persona.getPassword();
-    }
+    public String getPassword() {return persona.getPassword();}
 
     @Override
     public String getUsername() {

@@ -14,8 +14,8 @@
         <link href="form-validation.css" rel="stylesheet">
     </head>
     <body>
-        <!-- Insertar el navbar desde fragments.html -->
-        <div th:replace="test :: navbar"></div>
+        <!-- Insertar el navbar desde template.html -->
+        <div th:replace="template :: header"></div>
 
         <div class="container">
             <main>
@@ -50,6 +50,12 @@
                                 <label class="form-label">Dirección:</label>
                                 <input type="text" th:field="*{direccion}" class="form-control" placeholder="Pronvincia Distrito" required/>
                             </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Contraseña:</label>
+                                <input type="password" th:field="*{password}" class="form-control" placeholder="Contraseña" required/>
+                            </div>                            
+                        </div>
                             <hr class="my-4">
                             <button class="w-100 btn btn-primary btn-lg" type="submit">Registrar</button>
                         </div>

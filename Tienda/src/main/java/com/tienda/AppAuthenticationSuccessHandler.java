@@ -1,5 +1,6 @@
-package com.tienda;
+package com.tienda; // Paquete del proyecto
 
+// Importaciones necesarias para manejar la autenticación y redirección
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,10 +13,12 @@ import java.io.IOException;
 import java.util.Collection;
 
 @Component
-/*Es un componente que se ejecuta cuando la autenticacion se realiza con exito
-  Permite personalizar lo que se ejecuta despues del login exitoso:  redirigir
-  a diferentes paginas segun el rol o agregar datos adicionales a la sesion
-*/
+/*
+ * Esta clase es un componente de Spring que se ejecuta automáticamente
+ * después de una autenticación exitosa.
+ * Permite personalizar el comportamiento post-login, como redirigir
+ * al usuario a diferentes páginas según su rol.
+ */
 public class AppAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
@@ -24,25 +27,30 @@ public class AppAuthenticationSuccessHandler implements AuthenticationSuccessHan
                                         Authentication authentication)
             throws IOException, ServletException {
 
+        // Obtiene los roles (autoridades) del usuario autenticado
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        // Valor por defecto para redirección después del login
         String redirectUrl = "/"; 
         
+        // Recorre los roles del usuario y decide la URL de redirección
         for (GrantedAuthority authority : authorities) {
-            String role = authority.getAuthority();
+            String role = authority.getAuthority(); // Ej: "ROLE_ADMIN", "ROLE_USER", etc.
+
+            // Redirige según el rol
             if (role.equals("ROLE_ADMIN")) {
-                System.out.println("ENTRE");
-                redirectUrl = "/personas/lista";
+                redirectUrl = "/home"; // Admin va al home de administración
                 break;
             } else if (role.equals("ROLE_VENDEDOR")) {
-                redirectUrl = "/ventas";
+                redirectUrl = "/ventas"; // Vendedor va a su módulo de ventas
                 break;
             } else if (role.equals("ROLE_USER")) {
-                redirectUrl = "/home";
+                redirectUrl = "/home"; // Usuario normal va al home general
                 break;
             }
         }
 
+        // Redirige al usuario a la URL determinada
         response.sendRedirect(redirectUrl);
     }
 }
-

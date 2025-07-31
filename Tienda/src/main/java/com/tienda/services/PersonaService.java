@@ -10,6 +10,8 @@ import com.tienda.repositories.PersonaRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +25,18 @@ public class PersonaService implements IPersonaService  {
     }
     @Override
     public Persona save(Persona persona) {
+
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        String rawPassword = persona.getPassword(); // tu contraseña en texto plano
+        String hashedPassword = encoder.encode(rawPassword);
+        persona.setPassword(hashedPassword);
+        // Aqui se debe manejar la logica del tipo de usuario que se va agregar, si es ADMIN, USUARIO O VENDEDOR
+        // Por ejemplo, por default lo seteo en ADMIN
+
+        persona.setRoles("ADMIN");
+        persona.setPermissions("ADMIN");
+
+
         return personaRepository.save(persona);
     }
 
