@@ -5,9 +5,17 @@
 package com.tienda.repositories;
 
 import com.tienda.entities.Persona;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
 
-public interface PersonaRepository extends JpaRepository<Persona, Long> {
-    
+/*
+
+Interface (tipo de clase que define metodos, pero no como se implementan) 
+Extends : Heredar (herencia)
+Clase Generica : 
+
+*/
+
+public interface PersonaRepository extends CrudRepository<Persona, Long> {
+     Persona findByNombre(String nombre); // Este método hace la magia
 }

@@ -1,7 +1,7 @@
 
 <!doctype html>
 
-<html xmlns:th="http://www.thymeleaf.org" lang="es" data-bs-theme="dark">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <script src="color-modes.js"></script>
         <meta charset="utf-8">
@@ -14,25 +14,17 @@
         <link href="form-validation.css" rel="stylesheet">
     </head>
     <body>
-        <header class="mb-auto bg-dark">
-            <div class="navega">
-                <h3 class="float-md-start mb-0 text-white">Gran Sorteo</h3>
-                <nav class="nav nav-masthead justify-content-center float-md-end">
-                    <a class="nav-link fw-bold py-1 px-0" href="/">Home</a>
-                    <a class="nav-link fw-bold py-1 px-0" href="/personas">Lista de Participantes</a>
-                    <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="/personas/nuevo">Registrarme</a>
-                </nav>
-            </div>
-        </header>
+        <!-- Insertar el navbar desde fragments.html -->
+        <div th:replace="test :: navbar"></div>
+
         <div class="container">
             <main>
-
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Dirección de envio</h4>
-
+                    <!-- form nos permite enviar datos al servidor -->
                     <form th:action="@{/personas}" th:object="${persona}" method="post">
                         <div class="row g-3">
-
+                            <!-- No se ve, pero es necesario para construir nuestro objeto persona -->
                             <input type="hidden" th:field="*{id}" />
                             <div class="col-sm-6">
                                 <label class="form-label">Nombre:</label>
@@ -45,7 +37,6 @@
                             </div>
 
                             <div class="col-12">
-
                                 <label class="form-label">Email:</label>
                                 <input type="email" th:field="*{email}" class="form-control" placeholder="you@example.com"  required/>
                             </div>
@@ -66,9 +57,6 @@
                 </div>
             </main>
 
-            <footer class="my-5 pt-5 text-muted text-center text-small">
-                <p class="mb-1">&copy; 2017–2024 Gran Sotero LLC</p>
-            </footer>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="form-validation.js"></script>

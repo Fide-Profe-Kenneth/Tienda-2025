@@ -22,17 +22,12 @@ public class PersonaController {
     @Autowired
     private PersonaService personaService;
 
-    @GetMapping
+    @GetMapping("/lista")
     public String listarPersonas(Model model) {
-        model.addAttribute("personas", personaService.listarTodas());
+        model.addAttribute("personas", personaService.findAll());
         return "persona-list";
     }
-    
-    @GetMapping("/")
-    public String mostrarPaginaInicio() {
-        return "index";
-    }
-
+  
     @GetMapping("/nuevo")
     public String mostrarFormularioNuevaPersona(Model model) {
         model.addAttribute("persona", new Persona());
@@ -41,19 +36,19 @@ public class PersonaController {
 
     @PostMapping
     public String guardarPersona(Persona persona) {
-        personaService.guardar(persona);
-        return "redirect:/personas";
+        personaService.save(persona);
+        return "redirect:/personas/lista";
     }
 
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditarPersona(@PathVariable Long id, Model model) {
-        model.addAttribute("persona", personaService.obtenerPorId(id));
+        model.addAttribute("persona", personaService.getById(id));
         return "persona-form";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarPersona(@PathVariable Long id) {
-        personaService.eliminar(id);
-        return "redirect:/personas";
+        personaService.delete(id);
+        return "redirect:/personas/lista";
     }
 }

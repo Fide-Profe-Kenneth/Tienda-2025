@@ -13,24 +13,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonaService {
+public class PersonaService implements IPersonaService  {
 
     @Autowired
     private PersonaRepository personaRepository;
-
-    public List<Persona> listarTodas() {
+    @Override
+    public List<Persona> findAll() {
         return (List<Persona>) this.personaRepository.findAll();
     }
-
-    public Persona guardar(Persona persona) {
+    @Override
+    public Persona save(Persona persona) {
         return personaRepository.save(persona);
     }
 
-    public Optional<Persona> obtenerPorId(Long id) {
-        return personaRepository.findById(id);
-    }
-    
-    public void eliminar(Long id) {
+    @Override
+    public Optional<Persona> getById(long id) {
+       return personaRepository.findById(id);}
+
+    @Override
+    public void delete(long id) {
         personaRepository.deleteById(id);
     }
+
+    @Override
+    public Persona findByNombre(String nombre) {
+        return personaRepository.findByNombre(nombre);
+    }
+
+
 }
